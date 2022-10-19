@@ -1,8 +1,8 @@
 # get_word_meaning
 
 Tasks:
--[] make dictionary
--[] make para report generator
+- [ ] make dictionary
+- [ ] make para report generator
 
 Notes:
 
