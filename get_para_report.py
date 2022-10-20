@@ -38,7 +38,8 @@ def word_pos_meaning():
                 word if definition is None
                 else f"{word} {pos} {definition} "
             )
-    print(outputs)
+    with open('get_para_report.csv', 'w') as final_csv_file:
+        final_csv_file.write('\n'.join(outputs))
 
 
 word_pos_meaning()
