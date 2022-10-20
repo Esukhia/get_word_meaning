@@ -29,17 +29,17 @@ def word_pos_meaning():
     with open('tibetan_dict.yml') as f:
         data = yaml.load(f, Loader=SafeLoader)
 
-    outputs = []
+    word_pos_meaning_content = []
     with open('tokenized_para.csv', 'r') as file:
         for line in file:
             word, pos = line.split(' ')[:2]
             definition = data.get(word.strip())
-            outputs.append(
+            word_pos_meaning_content.append(
                 word if definition is None
                 else f"{word} {pos} {definition} "
             )
     with open('get_para_report.csv', 'w') as final_csv_file:
-        final_csv_file.write('\n'.join(outputs))
+        final_csv_file.write('\n'.join(word_pos_meaning_content))
 
 
 word_pos_meaning()
