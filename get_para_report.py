@@ -22,27 +22,27 @@ def get_tokens(wt):
     return tokens
 
 
-def word_pos_meaning():
+def word_pos_definition():
     """
     Returns word pos meaning
     """
     with open('tibetan_dict.yml') as f:
-        data = yaml.load(f, Loader=SafeLoader)
+        tibetan_dictionary = yaml.load(f, Loader=SafeLoader)
 
-    word_pos_meaning_content = []
+    word_pos_definition_content = []
     with open('tokenized_para.csv', 'r') as file:
         for line in file:
             word, pos = line.split(' ')[:2]
-            definition = data.get(word.strip())
-            word_pos_meaning_content.append(
+            definition = tibetan_dictionary.get(word.strip())
+            word_pos_definition_content.append(
                 word if definition is None
                 else f"{word} {pos} {definition} "
             )
     with open('get_para_report.csv', 'w') as final_csv_file:
-        final_csv_file.write('\n'.join(word_pos_meaning_content))
+        final_csv_file.write('\n'.join(word_pos_definition_content))
 
 
-word_pos_meaning()
+word_pos_definition()
 
 if __name__ == "__main__":
     wt = WordTokenizer()
