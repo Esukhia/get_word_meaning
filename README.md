@@ -1,7 +1,7 @@
 # get_word_meaning
 
 Tasks:
-- [ ] make virtual environment and procced
+- [ ] make virtual environment and proceed
 - [ ] make dictionary
 - [ ] make para report generator
 
