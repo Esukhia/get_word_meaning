@@ -12,6 +12,7 @@ from botok import WordTokenizer
 from pathlib import Path
 import yaml
 from yaml.loader import SafeLoader
+from count_sentences_para import sentence_token
 
 
 def get_tokens(wt):
@@ -52,3 +53,7 @@ if __name__ == "__main__":
     for token in tokens:
         tibetan_tokenized_string += f"{token.text} {token.pos}\n"
     Path('tokenized_para.csv').write_text(tibetan_tokenized_string, encoding='utf-8')
+
+    # print number of sentences
+    sentence_count = sentence_token()
+    print(f"Number of sentences in the paragraph is {sentence_count}")
