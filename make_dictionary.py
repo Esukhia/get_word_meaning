@@ -12,6 +12,7 @@ def convert_dict_to_yaml():
     tibetan_dict_txt_content = tibetan_dict_txt_file.read_text()
     tibetan_dict_entries = tibetan_dict_txt_content.splitlines()
     for tibetan_dict_entry in tibetan_dict_entries:
+        tibetan_dict_entry = tibetan_dict_entry.replace("༑", "་༑")
         tibetan_dict_entry_info = tibetan_dict_entry.split("༑")
         tibetan_dict[str(tibetan_dict_entry_info[0])] = tibetan_dict_entry_info[1]
     with open('tibetan_dict.yml', 'w', encoding='utf-8') as outfile:
