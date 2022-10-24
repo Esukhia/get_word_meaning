@@ -15,7 +15,7 @@ from yaml.loader import SafeLoader
 from count_sentences_para import sentence_token
 
 
-def get_tokens(wt):
+def get_tokens(wt, tibetan_para):
     """
     tokenize tibetan paragraph with pos
     """
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     wt = WordTokenizer()
     tibetan_tokenized_string = ""
     tibetan_para = Path('tibetan_paragraph.txt').read_text(encoding='utf-8')
-    tokens = get_tokens(wt)
+    tokens = get_tokens(wt, tibetan_para)
     for token in tokens:
         tibetan_tokenized_string += f"{token.text} {token.pos}\n"
     Path('tokenized_para.csv').write_text(tibetan_tokenized_string, encoding='utf-8')
