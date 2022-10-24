@@ -23,7 +23,7 @@ def get_tokens(wt, tibetan_para):
     tokens = wt.tokenize(tibetan_para, split_affixes=False)
     return tokens
 
-def sentence_token():
+def count_sentence():
     """
     count the number of sentences in a given paragraph
     """
@@ -70,4 +70,4 @@ if __name__ == "__main__":
     word_pos_definition()
     
     # print number of sentences
-    sentence_token()
+    count_sentence()
