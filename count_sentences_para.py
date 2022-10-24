@@ -13,4 +13,5 @@ def sentence_token():
     tibetan_para = Path('./tibetan_paragraph.txt').read_text(encoding='utf-8')
     tokens = get_tokens(wt, tibetan_para)
     sentences = sentence_tokenizer(tokens)
-    print(len(sentences))
+    count_sentence = f"total count of sentence is {len(sentences)}"
+    Path('sentence_count.csv').write_text(count_sentence, encoding='utf-8')

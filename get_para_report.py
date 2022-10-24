@@ -11,6 +11,7 @@ eg:
 from botok import WordTokenizer
 from pathlib import Path
 import yaml
+import string
 from yaml.loader import SafeLoader
 from count_sentences_para import sentence_token
 
@@ -31,19 +32,21 @@ def word_pos_definition():
         tibetan_dictionary = yaml.load(f, Loader=SafeLoader)
 
     word_pos_definition_content = []
-    with open('tokenized_para.csv', 'r') as file:
+    with open('tokenized_para.txt', 'r') as file:
         for line in file:
-            word, pos = line.split(' ')[:2]
+            word = line.split(' ')[0]
+            pos = ''.join([i for i in line if i in string.ascii_uppercase])
             definition = tibetan_dictionary.get(word.strip())
             word_pos_definition_content.append(
                 word if definition is None
                 else f"{word} {pos} {definition} "
             )
+            
     with open('get_para_report.csv', 'w') as final_csv_file:
         final_csv_file.write('\n'.join(word_pos_definition_content))
 
 
-word_pos_definition()
+
 
 if __name__ == "__main__":
     wt = WordTokenizer()
@@ -52,8 +55,10 @@ if __name__ == "__main__":
     tokens = get_tokens(wt, tibetan_para)
     for token in tokens:
         tibetan_tokenized_string += f"{token.text} {token.pos}\n"
-    Path('tokenized_para.csv').write_text(tibetan_tokenized_string, encoding='utf-8')
+    Path('tokenized_para.txt').write_text(tibetan_tokenized_string, encoding ='utf-8')
 
+
+    word_pos_definition()
+    
     # print number of sentences
-    sentence_count = sentence_token()
-    print(f"Number of sentences in the paragraph is {sentence_count}")
+    sentence_token()
