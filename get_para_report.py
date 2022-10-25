@@ -16,12 +16,16 @@ from yaml.loader import SafeLoader
 from botok.tokenizers.sentencetokenizer import sentence_tokenizer
 
 
+
 def get_tokens(wt, tibetan_para):
     """
     tokenize tibetan paragraph with pos
     """
     tokens = wt.tokenize(tibetan_para, split_affixes=False)
     return tokens
+
+
+
 
 def count_sentence():
     """
@@ -34,6 +38,9 @@ def count_sentence():
     count_sentence = f"total count of sentence is {len(sentences)}"
     with open('get_para_report.csv', 'a') as file:
         file.write(str(count_sentence))
+
+
+
 
 def word_pos_definition():
     """
