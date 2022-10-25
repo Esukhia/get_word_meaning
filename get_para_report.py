@@ -10,6 +10,7 @@ eg:
 """
 import yaml
 import string
+
 from pathlib import Path
 from botok import WordTokenizer
 from yaml.loader import SafeLoader
@@ -73,8 +74,8 @@ if __name__ == "__main__":
         tibetan_tokenized_string += f"{token.text} {token.pos}\n"
     Path('tokenized_para.txt').write_text(tibetan_tokenized_string, encoding ='utf-8')
 
-
+    
     word_pos_definition()
     
-    # print number of sentences
+    # print number of sentences 
     count_sentence()
