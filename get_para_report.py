@@ -8,11 +8,14 @@ eg:
 ཀུན་སྤྱོད   NOUN    མིའི་བསམ་ཚུལ་སྤྱོད་ཚུལ་གྱི་སྤྱི་མིང་སྟེ། རྟོགས་པ་ལྷ་དང་མཉམ་ཡང་། ཀུན་སྤྱོད་མི་དང་མཐུན་དགོས་ལྟ་བུ།
 - need the count of sentences in the given para.
 """
-from botok import WordTokenizer
-from pathlib import Path
 import yaml
+import string
+
+from pathlib import Path
+from botok import WordTokenizer
 from yaml.loader import SafeLoader
-from count_sentences_para import sentence_token
+from botok.tokenizers.sentencetokenizer import sentence_tokenizer
+
 
 
 def get_tokens(wt, tibetan_para):
@@ -23,6 +26,23 @@ def get_tokens(wt, tibetan_para):
     return tokens
 
 
+
+
+def count_sentence():
+    """
+    count the number of sentences in a given paragraph
+    """
+    wt = WordTokenizer()
+    tibetan_para = Path('./tibetan_paragraph.txt').read_text(encoding='utf-8')
+    tokens = get_tokens(wt, tibetan_para)
+    sentences = sentence_tokenizer(tokens)
+    count_sentence = f"total count of sentence is {len(sentences)}"
+    with open('get_para_report.csv', 'a') as file:
+        file.write(str(count_sentence))
+
+
+
+
 def word_pos_definition():
     """
     Returns word pos meaning
@@ -31,9 +51,10 @@ def word_pos_definition():
         tibetan_dictionary = yaml.load(f, Loader=SafeLoader)
 
     word_pos_definition_content = []
-    with open('tokenized_para.csv', 'r') as file:
+    with open('tokenized_para.txt', 'r') as file:
         for line in file:
-            word, pos = line.split(' ')[:2]
+            word = line.split(' ')[0]
+            pos = ''.join([i for i in line if i in string.ascii_uppercase])
             definition = tibetan_dictionary.get(word.strip())
             word_pos_definition_content.append(
                 word if definition is None
@@ -43,17 +64,18 @@ def word_pos_definition():
         final_csv_file.write('\n'.join(word_pos_definition_content))
 
 
-word_pos_definition()
-
 if __name__ == "__main__":
+    
     wt = WordTokenizer()
     tibetan_tokenized_string = ""
     tibetan_para = Path('tibetan_paragraph.txt').read_text(encoding='utf-8')
     tokens = get_tokens(wt, tibetan_para)
     for token in tokens:
         tibetan_tokenized_string += f"{token.text} {token.pos}\n"
-    Path('tokenized_para.csv').write_text(tibetan_tokenized_string, encoding='utf-8')
+    Path('tokenized_para.txt').write_text(tibetan_tokenized_string, encoding ='utf-8')
 
-    # print number of sentences
-    sentence_count = sentence_token()
-    print(f"Number of sentences in the paragraph is {sentence_count}")
+    # generate report
+    word_pos_definition()
+    
+    # print count of sentences in report
+    count_sentence()
