@@ -74,8 +74,8 @@ if __name__ == "__main__":
         tibetan_tokenized_string += f"{token.text} {token.pos}\n"
     Path('tokenized_para.txt').write_text(tibetan_tokenized_string, encoding ='utf-8')
 
-    
+    # generate report
     word_pos_definition()
     
-    # print number of sentences 
+    # print count of sentences in report
     count_sentence()
